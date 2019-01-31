@@ -1,5 +1,5 @@
 [general]
-RemoteNickFormat="{NICK} ({CHANNEL}@{BRIDGE}): "
+RemoteNickFormat="{NICK} ({CHANNEL}@{LABEL}): "
 TranslationAttribution=" [translated by :google:]"
 PreserveThreading=true
 ShowUserTyping=true
@@ -10,186 +10,35 @@ IconURL="https://github.com/identicons/{NICK}.png"
 
 ## ACCOUNTS
 
-#[slack.example]
-##Token to connect with the Slack API
-##You'll have to use a test/api-token using a dedicated user and not a bot token.
-##See https://github.com/42wim/matterbridge/wiki/Slack-bot-setup for more information
-#Token="${SLACK_EXAMPLE_TOKEN}" # real user
+[slack.codeforall]
+Label="Code for All"
 
-[slack.betanyc]
-# Token=$MATTERBRIDGE_SLACK_BETANYC_TOKEN # legacy token (user: bridgebot-patcon) # set in envvar
+[slack.epanstwo]
+Label="ePanstwo (Poland)"
 
 [slack.cfjapan]
-# Token=$MATTERBRIDGE_SLACK_CFJAPAN_TOKEN # legacy token (user: patcon) # set in envvar
-
-[slack.civictechto]
-# Token=$MATTERBRIDGE_SLACK_CIVICTECHTO_TOKEN # bot token # set in envvar
-
-[slack.matterbridge]
-# Token=$MATTERBRIDGE_SLACK_MATTERBRIDGE_TOKEN # legacy token (user: patcon)# set in envvar
-
-[slack.metapolis]
-# Token=$MATTERBRIDGE_SLACK_METAPOLIS_TOKEN # legacy token (user: patcon) # set in envvar
+Label="Code for Japan"
 
 [slack.g0vtw]
-# Token=$MATTERBRIDGE_SLACK_G0VTW_TOKEN # legacy token (user: bridgebot-patcon) # set in envvar
-# Too noisy. Related: https://github.com/42wim/matterbridge/issues/524
-ShowJoinPart=false
+Label="g0v"
 
-[irc.irc]
-Server="chat.freenode.net:6697"
-Nick="g0v-bridgebot"
-RemoteNickFormat="{NICK}@{PROTOCOL}: "
-UseTLS=true
-UseSASL=true
-# NickServNick= # set in envvar
-# NickServPassword= # set in envvar
-
-[telegram.telegram]
-# Token= # bot user: hacklabto_bridgebot # set in envvar
-RemoteNickFormat="{NICK}@{PROTOCOL}: "
-UseInsecureURL=true
 
 ## GATEWAYS & BRIDGES
 
 [[gateway]]
-name="matterbridge"
+name="cfall-general"
 enable=true
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="chat-bridge"
-  [[gateway.inout]]
-  account="slack.matterbridge"
-  channel="general"
 
-[[gateway]]
-name="tech-workers-coop"
-enable=true
   [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="twc-g0v"
-    [gateway.inout.options]
-    locale="zh-TW"
+  account="slack.epanstwo"
+  channel="mbtest"
+  
   [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="twc-g0v-en"
-    [gateway.inout.options]
-    locale="en"
-
-[[gateway]]
-name="vtaiwan"
-enable=true
+  account="slack.cfall"
+  channel="mbtest"
+  
   [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="vtaiwan-tw"
-    [gateway.inout.options]
-    locale="zh-TW"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="vtaiwan"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="vtaiwan-en"
-    [gateway.inout.options]
-    locale="en"
-  [[gateway.inout]]
-  account="slack.civictechto"
-  channel="vtaiwan"
-    [gateway.inout.options]
-    locale="en"
-  [[gateway.inout]]
-  account="slack.cfjapan"
-  channel="vtaiwan-ja"
-    #[gateway.inout.options]
-    #locale="ja"
-  [[gateway.inout]]
-  account="slack.cfjapan"
-  channel="vtaiwan"
-
-
-[[gateway]]
-name="i18n-test"
-enable=true
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="i18n-test-tw"
-    [gateway.inout.options]
-    locale="zh-TW"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="i18n-test-en"
-    [gateway.inout.options]
-    locale="en"
-
-[[gateway]]
-name="general"
-enable=true
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="general"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="general-tw"
-    [gateway.inout.options]
-    locale="zh-TW"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="general-en"
-    [gateway.inout.options]
-    locale="en"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="general-ko"
-    [gateway.inout.options]
-    locale="ko"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="general-ja"
-    [gateway.inout.options]
-    locale="ja"
-  #[[gateway.inout]]
-  #  account="telegram.telegram"
-  #  channel="-1001210052391" # g0v group
-  #[[gateway.inout]]
-  #  account="irc.irc"
-  #  channel="#g0v.tw"
-
-[[gateway]]
-name="vnetwork"
-enable=true
-  [[gateway.inout]]
-  account="slack.civictechto"
-  channel="vnetwork"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="vnetwork"
-  [[gateway.inout]]
-  account="slack.betanyc"
-  channel="vnetwork"
-  [[gateway.inout]]
-  account="slack.cfjapan"
-  channel="vnetwork"
-
-[[gateway]]
-name="holopolis"
-enable=true
-  [[gateway.inout]]
-  account="slack.civictechto"
-  channel="holopolis"
-  [[gateway.inout]]
-  account="slack.g0vtw"
-  channel="holopolis"
-
-[[gateway]]
-name="cfj-general"
-enable=true
-  [[gateway.inout]]
-  account="slack.cfjapan"
-  channel="general"
-    [gateway.inout.options]
-    locale="ja"
-  [[gateway.inout]]
-  account="slack.cfjapan"
-  channel="general-en"
-    [gateway.inout.options]
+  account="slack.cfall"
+  channel="mbtest-en"
+  [gateway.inout.options]
     locale="en"
